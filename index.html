@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Moe-Kyaw-Aung-Portfolio V.001 — a glasspunk, production-ready SaaS-style portfolio for Senior Android Developer Moe Kyaw Aung." />
+  <meta name="keywords" content="Moe Kyaw Aung, Senior Android Developer, Kotlin, Jetpack Compose, Firebase, CI/CD, Portfolio" />
+  <meta name="author" content="Moe Kyaw Aung" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta property="og:title" content="Moe-Kyaw-Aung-Portfolio V.001" />
+  <meta property="og:description" content="Senior Android Developer portfolio with glasspunk UI, animations, app collections, certificates, and contact flows." />
+  <meta property="og:type" content="website" />
+  <title>Moe-Kyaw-Aung-Portfolio V.001 | ⭐MOE KYAW AUNG ⭐ANDROID SENIOR DEVELOPER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#07111f;--bg2:#0b1630;--card:rgba(10,17,34,.62);--card2:rgba(18,29,58,.82);
+      --text:#eef4ff;--muted:#a6b6d4;--line:rgba(255,255,255,.12);
+      --accent:#7c5cff;--accent2:#20e3b2;--accent3:#32a4ff;
+      --shadow:0 20px 80px rgba(0,0,0,.35);--radius:24px
+    }
+    [data-theme="light"]{
+      --bg:#f5f8ff;--bg2:#e9efff;--card:rgba(255,255,255,.72);--card2:rgba(255,255,255,.88);
+      --text:#111827;--muted:#516079;--line:rgba(8,18,40,.12);--shadow:0 20px 50px rgba(22,39,73,.12)
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{
+      margin:0;font-family:Inter,system-ui;
+      background:radial-gradient(circle at top,rgba(124,92,255,.28),transparent 28%),
+                 radial-gradient(circle at 80% 20%,rgba(32,227,178,.18),transparent 22%),
+                 linear-gradient(180deg,var(--bg),var(--bg2));
+      color:var(--text);overflow-x:hidden
+    }
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container-xl{max-width:1320px}
+    .preloader{
+      position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:9999;transition:.4s
+    }
+    .preloader.hide{opacity:0;visibility:hidden}
+    .loader{
+      width:84px;height:84px;border-radius:50%;
+      border:4px solid rgba(255,255,255,.08);border-top-color:var(--accent);
+      animation:spin 1s linear infinite;box-shadow:0 0 40px rgba(124,92,255,.35)
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .topbar{
+      backdrop-filter:blur(18px);background:rgba(7,17,31,.62);border-bottom:1px solid var(--line)
+    }
+    [data-theme="light"] .topbar{background:rgba(245,248,255,.72)}
+    .brand{font-family:'Space Grotesk';font-weight:700;letter-spacing:.4px}
+    .nav-link{color:var(--muted)!important}
+    .nav-link:hover,.nav-link.active{color:var(--text)!important}
+    .hero{
+      position:relative;min-height:100vh;padding-top:100px;overflow:hidden
+    }
+    #particleCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.75}
+    .glass{
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(18px);border-radius:var(--radius)
+    }
+    .hero-card{padding:2rem}
+    .eyebrow{
+      display:inline-flex;gap:.5rem;align-items:center;padding:.45rem .8rem;border-radius:999px;
+      background:rgba(124,92,255,.15);border:1px solid rgba(124,92,255,.3);color:#d9d0ff;
+      font-weight:700;font-size:.9rem
+    }
+    .hero h1{
+      font-family:'Space Grotesk';font-size:clamp(2.2rem,6vw,5.3rem);line-height:1.02;
+      font-weight:800;letter-spacing:-.04em
+    }
+    .gradient-text{
+      background:linear-gradient(90deg,#fff,var(--accent2),var(--accent3));
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    .hero p{color:var(--muted);max-width:62ch}
+    .stat{padding:1rem;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+    .stat .n{font-size:1.7rem;font-weight:800}
+    .photo{position:relative;width:min(100%,520px);margin-inline:auto}
+    .photo::before{
+      content:"";position:absolute;inset:-18px;
+      background:conic-gradient(from 90deg,var(--accent),var(--accent2),var(--accent3),var(--accent));
+      filter:blur(28px);opacity:.45;border-radius:50%
+    }
+    .photo img{
+      position:relative;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow);
+      aspect-ratio:1/1;object-fit:cover
+    }
+    section{padding:3.4rem 0}
+    .section-title{
+      font-family:'Space Grotesk';font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;letter-spacing:-.03em
+    }
+    .section-sub{color:var(--muted);max-width:70ch}
+    .mini-pad{padding-top:1rem}
+    .cardx{
+      height:100%;padding:1.25rem;border-radius:22px;background:var(--card2);border:1px solid var(--line);
+      box-shadow:var(--shadow);transition:.25s transform,.25s border-color
+    }
+    .cardx:hover{transform:translateY(-6px);border-color:rgba(124,92,255,.35)}
+    .icon-badge{
+      width:50px;height:50px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(32,227,178,.18));border:1px solid var(--line)
+    }
+    .ticker{display:flex;gap:.75rem;flex-wrap:wrap}
+    .chip{
+      padding:.55rem .85rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);
+      color:var(--muted)
+    }
+    .grid-masonry{columns:1;column-gap:1rem}
+    .grid-masonry>.cardx{break-inside:avoid;margin:0 0 1rem}
+    @media(min-width:768px){.grid-masonry{columns:2}}
+    @media(min-width:1200px){.grid-masonry{columns:3}}
+    .carousel-item img{height:420px;object-fit:cover;border-radius:22px}
+    .accordion-button,.accordion-body,.form-control,.form-select{background:transparent;color:var(--text)}
+    .form-control,.form-select{border-color:var(--line)}
+    .form-control:focus,.form-select:focus{
+      box-shadow:0 0 0 .2rem rgba(124,92,255,.18);border-color:var(--accent)
+    }
+    .btn-glass{
+      background:linear-gradient(135deg,var(--accent),var(--accent3));
+      border:none;color:#fff;font-weight:700
+    }
+    .btn-ghost{border:1px solid var(--line);color:var(--text)}
+    .footer{border-top:1px solid var(--line);background:rgba(5,10,20,.5)}
+    .social a{
+      width:42px;height:42px;border-radius:14px;display:inline-grid;place-items:center;
+      background:rgba(255,255,255,.06);border:1px solid var(--line)
+    }
+    .backtop,.sticky-cta,.theme-toggle{position:fixed;z-index:1040}
+    .backtop{right:18px;bottom:90px}
+    .sticky-cta{left:18px;bottom:18px}
+    .theme-toggle{right:18px;bottom:18px}
+    .backtop,.theme-toggle{
+      width:48px;height:48px;border:none;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:var(--shadow)
+    }
+    .sticky-cta{
+      padding:.9rem 1rem;border-radius:999px;background:linear-gradient(135deg,var(--accent),#ff4d8d);
+      color:#fff;font-weight:800;box-shadow:var(--shadow)
+    }
+    .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+    .reveal.show{opacity:1;transform:none}
+    .parallax{transform:translateY(var(--py,0px))}
+    .cursor{
+      position:fixed;inset:auto;left:0;top:0;width:22px;height:22px;border:2px solid rgba(255,255,255,.8);
+      border-radius:50%;pointer-events:none;mix-blend-mode:difference;z-index:9998;transform:translate(-50%,-50%)
+    }
+    [data-theme="light"] .cursor{border-color:#111827}
+    @media(max-width:991px){
+      .hero{padding-top:86px}
+      .carousel-item img{height:300px}
+      .cursor{display:none}
+      .sticky-cta{display:none}
+    }
+  </style>
+</head>
+<body data-theme="dark">
+<div class="preloader" id="preloader"><div class="loader" aria-label="Loading"></div></div>
+<div class="cursor" id="cursor"></div>
+
+<nav class="navbar navbar-expand-lg fixed-top topbar">
+  <div class="container-xl">
+    <a class="navbar-brand brand text-white" href="#home">MKA V.001</a>
+    <button class="navbar-toggler btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto me-3 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#apps">Apps</a></li>
+        <li class="nav-item"><a class="nav-link" href="#certs">Certificates</a></li>
+        <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <button class="btn btn-sm btn-glass me-2" data-bs-toggle="modal" data-bs-target="#newsletterModal">Newsletter</button>
+      <button class="theme-toggle position-static" id="themeBtn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </div>
+</nav>
+
+<header id="home" class="hero d-flex align-items-center">
+  <canvas id="particleCanvas"></canvas>
+  <div class="container-xl position-relative">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7 reveal">
+        <span class="eyebrow mb-3">⭐MOE KYAW AUNG ⭐ANDROID SENIOR DEVELOPER</span>
+        <h1 class="mb-3">Glasspunk portfolio for <span class="gradient-text">Senior Android, Kotlin, and Jetpack Compose</span> delivery.</h1>
+        <p class="lead mb-4">Built as a multi-page style SaaS landing experience with compact spacing, strong visual hierarchy, smooth scroll, parallax depth, and polished interaction patterns.</p>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <span class="chip">Burmese 🇲🇲</span><span class="chip">English 🌐</span><span class="chip">Kotlin ☕</span>
+          <span class="chip">Firebase</span><span class="chip">CI/CD</span><span class="chip">Clean Architecture</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <a href="#contact" class="btn btn-glass px-4 py-3">Contact Me</a>
+          <a href="#apps" class="btn btn-ghost px-4 py-3">View App Collection</a>
+          <a href="https://gravatar.com/moekyawaung13721" target="_blank" class="btn btn-ghost px-4 py-3">Gravatar Profile</a>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-md-3"><div class="stat"><div class="n" data-count="10">0</div><div class="small text-muted">+ Years</div></div></div>
+          <div class="col-6 col-md-3"><div class="stat"><div class="n" data-count="3000">0</div><div class="small text-muted">+ Lines Ready</div></div></div>
+          <div class="col-6 col-md-3"><div class="stat"><div class="n" data-count="22">0</div><div class="small text-muted">+ Repos</div></div></div>
+          <div class="col-6 col-md-3"><div class="stat"><div class="n" data-count="100">0</div><div class="small text-muted">% Feedback</div></div></div>
+        </div>
+      </div>
+      <div class="col-lg-5 reveal">
+        <div class="photo parallax" style="--py:0px">
+          <img src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778763535/MKA_25_lbx6fb.webp" alt="Moe Kyaw Aung portrait">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container-xl">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-7 reveal">
+        <h2 class="section-title">Advanced About Timeline</h2>
+        <p class="section-sub">Android engineer with nearly 12 years of hands-on experience building secure, scalable, and user-friendly mobile applications. Strong in Kotlin, Compose, Firebase, REST APIs, clean architecture, modular design, and release-ready delivery.</p>
+        <div class="cardx mt-3">
+          <div class="timeline">
+            <div class="mb-3"><strong>2014</strong><div class="text-muted">Started building Android apps with a product mindset.</div></div>
+            <div class="mb-3"><strong>2018</strong><div class="text-muted">Focused on Kotlin, MVVM, Room, Retrofit, and robust data layers.</div></div>
+            <div class="mb-3"><strong>2022</strong><div class="text-muted">Expanded into Jetpack Compose, Firebase, and CI/CD automation.</div></div>
+            <div><strong>2026</strong><div class="text-muted">Leading polished portfolios, SaaS-style landings, and app showcases.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 reveal">
+        <div class="cardx">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Focus Matrix</h3>
+            <span class="badge text-bg-success">Live</span>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Mobile</span><span>95%</span></div>
+            <div class="progress" style="height:10px"><div class="progress-bar bg-info" style="width:95%"></div></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Backend</span><span>88%</span></div>
+            <div class="progress" style="height:10px"><div class="progress-bar bg-warning" style="width:88%"></div></div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between"><span>Security</span><span>76%</span></div>
+            <div class="progress" style="height:10px"><div class="progress-bar bg-danger" style="width:76%"></div></div>
+          </div>
+          <div>
+            <div class="d-flex justify-content-between"><span>AI / ML</span><span>71%</span></div>
+            <div class="progress" style="height:10px"><div class="progress-bar bg-success" style="width:71%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container-xl">
+    <div class="d-flex justify-content-between align-items-end gap-3 mb-3">
+      <div>
+        <h2 class="section-title">Platform Features</h2>
+        <p class="section-sub mb-0">A complete product-style portfolio with responsive motion, accessibility, and conversion-friendly structure.</p>
+      </div>
+    </div>
+    <div class="grid-masonry reveal">
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <h3 class="h5">Responsive navigation</h3>
+        <p class="text-muted mb-0">Fixed top bar, hamburger menu, sticky CTA, and theme toggle.</p>
+      </div>
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-bolt"></i></div>
+        <h3 class="h5">Performance-first UX</h3>
+        <p class="text-muted mb-0">Compact spacing, lazy visuals, and motion-aware animation hooks.</p>
+      </div>
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-layer-group"></i></div>
+        <h3 class="h5">Glass panels</h3>
+        <p class="text-muted mb-0">Transparent layered cards with vivid gradients and soft depth.</p>
+      </div>
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-language"></i></div>
+        <h3 class="h5">Burmese support</h3>
+        <p class="text-muted mb-0">Use Burmese and English in the same polished layout.</p>
+      </div>
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="h5">Accessibility</h3>
+        <p class="text-muted mb-0">Semantic HTML, focus states, contrast checks, and readable forms.</p>
+      </div>
+      <div class="cardx">
+        <div class="icon-badge mb-3"><i class="fa-solid fa-meteor"></i></div>
+        <h3 class="h5">Parallax depth</h3>
+        <p class="text-muted mb-0">Scroll-linked layers and reveal animations for premium motion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="container-xl">
+    <h2 class="section-title mb-2">My Create App Collection</h2>
+    <p class="section-sub mb-4">Selected senior-level examples and product ideas from the collection.</p>
+    <div class="row g-3 reveal">
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-chart-line"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Social Dashboard</h3><span class="badge text-bg-dark">New</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/social-dashboard" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-mobile-screen"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">PWA App</h3><span class="badge text-bg-dark">Live</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/pwa-app" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-circle-play"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Video Player</h3><span class="badge text-bg-dark">Pro</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/video-player" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-briefcase"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Job Portal</h3><span class="badge text-bg-dark">Featured</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/Job-Portal-App" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-cash-register"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">POS Ultimate Pro Max</h3><span class="badge text-bg-dark">Enterprise</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/POS-Ultimate-Pro-Max" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-cloud-sun"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Weather App</h3><span class="badge text-bg-dark">Utility</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/Weather-app" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-gamepad"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Game Collection</h3><span class="badge text-bg-dark">Fun</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/game-collection" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+      <div class="col-md-6 col-xl-3"><div class="cardx"><div class="icon-badge mb-3"><i class="fa-solid fa-calendar-check"></i></div><div class="d-flex justify-content-between align-items-start"><h3 class="h6 mb-1">Daily Planner</h3><span class="badge text-bg-dark">Productivity</span></div><p class="small text-muted">Production-inspired app concept with strong UI, business logic, and polished interactions.</p><a href="https://github.com/moekyawaung-tech/Daily-planner-app" target="_blank" class="small text-info">Open repository ↗</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="container-xl">
+    <h2 class="section-title mb-2">Certificates Collections</h2>
+    <p class="section-sub mb-4">Highlighting learning across Android, web, security, cloud, and automation.</p>
+    <div class="row g-3 reveal">
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">Kotlin Core</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">Jetpack Compose</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">Firebase Suite</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">CI/CD Automation</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">Clean Architecture</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">REST APIs</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">Room Database</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="cardx text-center"><div class="display-6 mb-2">🏅</div><h3 class="h6 mb-1">UI/UX Design</h3><p class="small text-muted mb-0">Verified skill growth with practical implementation.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="links">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-lg-6 reveal">
+        <div class="cardx">
+          <h2 class="h4">GitHub Collections</h2>
+          <div class="row row-cols-1 row-cols-md-2 g-2 mt-2">
+            <div class="col"><a class="d-block chip" href="https://github.com/Dev-moe-kyawaung" target="_blank">Dev-moe-kyawaung</a></div>
+            <div class="col"><a class="d-block chip" href="https://github.com/moekyawaung-tech" target="_blank">moekyawaung-tech</a></div>
+            <div class="col"><a class="d-block chip" href="https://github.com/Moekyawaung-cyber" target="_blank">Moekyawaung-cyber</a></div>
+            <div class="col"><a class="d-block chip" href="https://github.com/Moe-KyawAung" target="_blank">Moe-KyawAung</a></div>
+            <div class="col"><a class="d-block chip" href="https://github.com/Moekyawaung-dev" target="_blank">Moekyawaung-dev</a></div>
+            <div class="col"><a class="d-block chip" href="https://github.com/moekyawaung-web" target="_blank">moekyawaung-web</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="cardx">
+          <h2 class="h4">Lovable & Social</h2>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="chip" href="https://moekyawaung.lovable.app" target="_blank">moekyawaung.lovable.app</a>
+            <a class="chip" href="https://moekyawaung-github.lovable.app" target="_blank">moekyawaung-github.lovable.app</a>
+            <a class="chip" href="https://joy-codify-life.lovable.app/" target="_blank">joy-codify-life.lovable.app</a>
+            <a class="chip" href="https://gravatar.com/moekyawaung13721" target="_blank">gravatar.com/moekyawaung13721</a>
+            <a class="chip" href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank">LinkedIn</a>
+            <a class="chip" href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJG" target="_blank">YouTube</a>
+          </div>
+          <p class="mt-3 text-muted mb-0">Includes Gravatar profile integration and social collection links for GitHub, LinkedIn, YouTube, and more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container-xl">
+    <h2 class="section-title mb-2">Image Lightbox Gallery</h2>
+    <p class="section-sub mb-4">Selected project visuals, profile shots, and branding assets.</p>
+    <div class="row g-3 reveal">
+      <div class="col-6 col-lg-3"><a href="https://res.cloudinary.com/dye5qpwii/image/upload/v1778747388/image-1_1_khsx9s.png" target="_blank"><img class="cardx p-0" style="height:220px;object-fit:cover" src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778747388/image-1_1_khsx9s.png" alt="Portfolio gallery image"></a></div>
+      <div class="col-6 col-lg-3"><a href="https://res.cloudinary.com/dye5qpwii/image/upload/v1778763531/MKA_12_iv8kpm.webp" target="_blank"><img class="cardx p-0" style="height:220px;object-fit:cover" src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778763531/MKA_12_iv8kpm.webp" alt="Portfolio gallery image"></a></div>
+      <div class="col-6 col-lg-3"><a href="https://res.cloudinary.com/dye5qpwii/image/upload/v1778747384/image_1_buwgls.png" target="_blank"><img class="cardx p-0" style="height:220px;object-fit:cover" src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778747384/image_1_buwgls.png" alt="Portfolio gallery image"></a></div>
+      <div class="col-6 col-lg-3"><a href="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795825/cloud-icon-poster-1_2_opl7sy.png" target="_blank"><img class="cardx p-0" style="height:220px;object-fit:cover" src="https://res.cloudinary.com/dye5qpwii/image/upload/v1778795825/cloud-icon-poster-1_2_opl7sy.png" alt="Portfolio gallery image"></a></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container-xl">
+    <h2 class="section-title mb-2">Pricing Table</h2>
+    <div class="row g-3 reveal">
+      <div class="col-md-4">
+        <div class="cardx">
+          <h3 class="h4">Starter</h3>
+          <p class="text-muted">Quick landing setup.</p>
+          <div class="display-6">$299</div>
+          <ul class="text-muted">
+            <li>Single page</li><li>Basic sections</li><li>Email form</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="cardx border border-info">
+          <h3 class="h4">Pro</h3>
+          <p class="text-muted">Portfolio + app showcase.</p>
+          <div class="display-6">$699</div>
+          <ul class="text-muted">
+            <li>Animations</li><li>Gallery / carousel</li><li>SEO polish</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="cardx">
+          <h3 class="h4">Elite</h3>
+          <p class="text-muted">SaaS-grade production build.</p>
+          <div class="display-6">$1299</div>
+          <ul class="text-muted">
+            <li>Multi-page feel</li><li>Advanced interactivity</li><li>Performance tuning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container-xl">
+    <h2 class="section-title mb-3">FAQ</h2>
+    <div class="accordion reveal" id="faqAcc">
+      <div class="accordion-item cardx mb-2">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f1">Is this a single HTML file?</button></h2>
+        <div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body text-muted">Yes, the full experience is packaged as one ready-to-use HTML file.</div></div>
+      </div>
+      <div class="accordion-item cardx mb-2">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f2">Does it support mobile?</button></h2>
+        <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body text-muted">Yes, it is responsive with an offcanvas-style mobile menu and flexible grids.</div></div>
+      </div>
+      <div class="accordion-item cardx">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f3">Are animations motion-safe?</button></h2>
+        <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc"><div class="accordion-body text-muted">The layout keeps animations light and can respect reduced-motion preferences in production refinement.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-lg-5 reveal">
+        <div class="cardx h-100">
+          <h2 class="h4">Contact</h2>
+          <p class="text-muted">Tachileik, Myanmar ↔ Bangkok, Thailand</p>
+          <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>+95 9 889 000 889</p>
+          <p class="mb-3"><i class="fa-solid fa-phone me-2"></i>+959 666 000 050</p>
+          <div class="ratio ratio-16x9">
+            <iframe src="https://www.google.com/maps?q=Tachileik&output=embed" style="border:0;border-radius:18px" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal">
+        <form class="cardx needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label">Name</label><input class="form-control" required></div>
+            <div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control" required></div>
+            <div class="col-12"><label class="form-label">Message</label><textarea class="form-control" rows="5" required></textarea></div>
+            <div class="col-12 d-flex gap-2">
+              <button class="btn btn-glass px-4" type="submit">Send Message</button>
+              <button type="button" class="btn btn-ghost px-4" data-bs-toggle="modal" data-bs-target="#newsletterModal">Subscribe</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer pt-5 pb-4 mt-4">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h3 class="h4 brand">Moe-Kyaw-Aung-Portfolio V .001</h3>
+        <p class="text-muted">Glasspunk portfolio for senior Android delivery, app collections, and polished developer branding.</p>
+      </div>
+      <div class="col-lg-4">
+        <h4 class="h6">Newsletter</h4>
+        <form class="d-flex gap-2">
+          <input class="form-control" placeholder="Email address">
+          <button class="btn btn-glass">Join</button>
+        </form>
+      </div>
+      <div class="col-lg-4">
+        <h4 class="h6">Social</h4>
+        <div class="social d-flex flex-wrap gap-2">
+          <a href="https://github.com/Dev-moe-kyawaung" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://gravatar.com/moekyawaung13721" target="_blank"><i class="fa-solid fa-user"></i></a>
+          <a href="mailto:moekyawaung@programmer.net"><i class="fa-solid fa-envelope"></i></a>
+          <a href="tel:+959889000889"><i class="fa-solid fa-phone"></i></a>
+          <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/channel/UCuTXUguZb4xjeL2nX8WJG" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-muted small mt-4">Built for performance, accessibility, and high-conversion presentation.</div>
+  </div>
+</footer>
+
+<a href="#home" class="backtop" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+<a href="#contact" class="sticky-cta">Hire Moe Kyaw Aung</a>
+<button class="theme-toggle" id="themeBtn2" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+
+<div class="modal fade" id="newsletterModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content cardx">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Newsletter Signup</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control mb-2" placeholder="Email">
+        <button class="btn btn-glass w-100">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const body=document.body, pre=document.getElementById('preloader'), cursor=document.getElementById('cursor');
+window.addEventListener('load',()=>setTimeout(()=>pre.classList.add('hide'),700));
+
+const themeBtn=document.getElementById('themeBtn'), themeBtn2=document.getElementById('themeBtn2');
+function toggleTheme(){
+  const dark=body.getAttribute('data-theme')==='dark';
+  body.setAttribute('data-theme',dark?'light':'dark');
+  [themeBtn,themeBtn2].forEach(b=>b.innerHTML=`<i class="fa-solid ${dark?'fa-sun':'fa-moon'}"></i>`);
+}
+themeBtn.onclick=toggleTheme; themeBtn2.onclick=toggleTheme;
+
+document.addEventListener('mousemove',e=>{
+  cursor.style.left=e.clientX+'px';
+  cursor.style.top=e.clientY+'px';
+});
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)e.target.classList.add('show')
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+const cobs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting&&!e.target.dataset.done){
+    e.target.dataset.done=1;
+    let end=+e.target.dataset.count,cur=0,step=Math.max(1,Math.ceil(end/120));
+    let t=setInterval(()=>{
+      cur+=step;
+      if(cur>=end){cur=end;clearInterval(t)}
+      e.target.textContent=end>=1000?cur.toLocaleString():cur
+    },16)
+  }
+}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cobs.observe(el));
+
+const canvas=document.getElementById('particleCanvas'), ctx=canvas.getContext('2d');
+let w,h,pts=[];
+function resize(){
+  w=canvas.width=innerWidth;
+  h=canvas.height=innerHeight;
+  pts=Array.from({length:Math.min(90,Math.floor(w/18))},()=>({
+    x:Math.random()*w,y:Math.random()*h,
+    vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*1.8+1
+  }));
+}
+resize(); addEventListener('resize',resize);
+
+(function draw(){
+  ctx.clearRect(0,0,w,h);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>w)p.vx*=-1;
+    if(p.y<0||p.y>h)p.vy*=-1;
+    ctx.beginPath();
+    ctx.fillStyle='rgba(124,92,255,.72)';
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    pts.forEach(q=>{
+      const d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<130){
+        ctx.strokeStyle=`rgba(32,227,178,${1-d/130})`;
+        ctx.lineWidth=.7;
+        ctx.beginPath();
+        ctx.moveTo(p.x,p.y);
+        ctx.lineTo(q.x,q.y);
+        ctx.stroke();
+      }
+    });
+  });
+  requestAnimationFrame(draw);
+})();
+
+addEventListener('scroll',()=>{
+  document.querySelectorAll('.parallax').forEach(el=>{
+    el.style.setProperty('--py',`${window.scrollY*-0.08}px`)
+  })
+});
+
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!f.checkValidity()){f.classList.add('was-validated');return}
+  alert('Form submitted successfully.');
+  f.reset();
+}));
+</script>
+</body>
+</html>
